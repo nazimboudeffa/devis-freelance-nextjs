@@ -18,7 +18,7 @@ interface Estimation {
 const Home: React.FC = () =>{
   const [estimation, setEstimation] = useState<Estimation | null>(null);
 
-  const handleFormSubmit = (formData : any) => {
+  const handleFormSubmit = (formData: Omit<Estimation, 'totalCost' | 'totalHours'>) => {
     const result = calculateEstimation(formData);
     setEstimation({
       ...formData,

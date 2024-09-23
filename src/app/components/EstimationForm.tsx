@@ -2,9 +2,21 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+interface FormData {
+  projectName: string;
+  complexity: 'low' | 'medium' | 'high';
+  features: number;
+  hourlyRate: number;
+  estimatedHours: number;
+}
+
+interface EstimationFormProps {
+  onSubmit: (formData: FormData) => void;
+}
+
 type Complexity = 'low' | 'medium' | 'high';
 
-const EstimationForm = ({ onSubmit }: any) => {
+const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }: any) => {
   const [projectName, setProjectName] = useState<string>('');
   const [complexity, setComplexity] = useState<Complexity>('low');
   const [features, setFeatures] = useState<number>(1);
