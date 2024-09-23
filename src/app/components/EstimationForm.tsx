@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const EstimationForm = ({ onSubmit }: any) => {
   const [projectName, setProjectName] = useState('');
@@ -19,6 +21,15 @@ const EstimationForm = ({ onSubmit }: any) => {
   };
 
   return (
+    <>
+    <Link href="https://fr.tipeee.com/nazimboudeffa" passHref={true}>                   
+      <Image
+          src="tipeee_tip_btn.svg"
+          alt="tip"
+          height={80}
+          width={70} 
+      />
+    </Link>
     <form onSubmit={handleSubmit}>
       <div>
         <label>Nom du projet :</label>
@@ -69,6 +80,7 @@ const EstimationForm = ({ onSubmit }: any) => {
       </div>
       <button className="btn btn-primary" type="submit">Estimer le devis</button>
     </form>
+    </>
   );
 };
 
