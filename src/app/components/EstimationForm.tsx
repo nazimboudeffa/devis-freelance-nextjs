@@ -50,48 +50,57 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
         <input 
           type="text" 
           value={projectName} 
+          className="input input-bordered w-full max-w-xs"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setProjectName(e.target.value)} 
           required 
         />
       </div>
+      <br/>
       <div>
         <label>Complexité :</label>
-        <select value={complexity} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setComplexity(e.target.value as Complexity)}>
+        <select value={complexity} className="select select-bordered w-full max-w-xs" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setComplexity(e.target.value as Complexity)}>
           <option value="low">Faible</option>
           <option value="medium">Moyenne</option>
           <option value="high">Élevée</option>
         </select>
       </div>
+      <br/>
       <div>
         <label>Nombre de fonctionnalités :</label>
         <input 
           type="number"
-          value={features} 
+          value={features}
+          className="input input-bordered w-full max-w-xs" 
           onChange={(e) => setFeatures(Number(e.target.value))} 
           min="1" 
           required 
         />
       </div>
+      <br/>
       <div>
         <label>Taux horaire (€/h) :</label>
         <input 
           type="number" 
           value={hourlyRate} 
+          className="input input-bordered w-full max-w-xs"
           onChange={(e) => setHourlyRate(Number(e.target.value))} 
           min="1" 
           required 
         />
       </div>
+      <br/>
       <div>
         <label>Estimation des heures :</label>
         <input 
           type="number" 
           value={estimatedHours} 
+          className="input input-bordered w-full max-w-xs"
           onChange={(e) => setEstimatedHours(Number(e.target.value))} 
           min="1" 
           required 
         />
       </div>
+      <br/>
       <button className="btn btn-primary" type="submit">Estimer le devis</button>
     </form>
     </>
