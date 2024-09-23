@@ -16,7 +16,7 @@ interface EstimationFormProps {
 
 type Complexity = 'low' | 'medium' | 'high';
 
-const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }: any) => {
+const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   const [projectName, setProjectName] = useState<string>('');
   const [complexity, setComplexity] = useState<Complexity>('low');
   const [features, setFeatures] = useState<number>(1);
