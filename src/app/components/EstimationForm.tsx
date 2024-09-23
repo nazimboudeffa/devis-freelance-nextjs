@@ -4,7 +4,7 @@ const EstimationForm = ({ onSubmit }: any) => {
   const [projectName, setProjectName] = useState('');
   const [complexity, setComplexity] = useState('low');
   const [features, setFeatures] = useState(1);
-  const [hourlyRate, setHourlyRate] = useState(250); // Par défaut, 50€/h
+  const [hourlyRate, setHourlyRate] = useState(50); // Par défaut, 50€/h
   const [estimatedHours, setEstimatedHours] = useState(10);
 
   const handleSubmit = (e: any) => {
@@ -67,7 +67,7 @@ const EstimationForm = ({ onSubmit }: any) => {
           required 
         />
       </div>
-      <button type="submit">Estimer le devis</button>
+      <button className="btn btn-primary" type="submit">Estimer le devis</button>
     </form>
   );
 };
