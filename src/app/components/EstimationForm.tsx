@@ -2,14 +2,16 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const EstimationForm = ({ onSubmit }: any) => {
-  const [projectName, setProjectName] = useState('');
-  const [complexity, setComplexity] = useState('low');
-  const [features, setFeatures] = useState(1);
-  const [hourlyRate, setHourlyRate] = useState(50); // Par défaut, 50€/h
-  const [estimatedHours, setEstimatedHours] = useState(10);
+type Complexity = 'low' | 'medium' | 'high';
 
-  const handleSubmit = (e: any) => {
+const EstimationForm = ({ onSubmit }: any) => {
+  const [projectName, setProjectName] = useState<string>('');
+  const [complexity, setComplexity] = useState<Complexity>('low');
+  const [features, setFeatures] = useState<number>(1);
+  const [hourlyRate, setHourlyRate] = useState<number>(50); // Par défaut, 50€/h
+  const [estimatedHours, setEstimatedHours] = useState<number>(10);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit({
       projectName,
@@ -36,13 +38,13 @@ const EstimationForm = ({ onSubmit }: any) => {
         <input 
           type="text" 
           value={projectName} 
-          onChange={(e) => setProjectName(e.target.value)} 
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setProjectName(e.target.value)} 
           required 
         />
       </div>
       <div>
         <label>Complexité :</label>
-        <select value={complexity} onChange={(e) => setComplexity(e.target.value)}>
+        <select value={complexity} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setComplexity(e.target.value as Complexity)}>
           <option value="low">Faible</option>
           <option value="medium">Moyenne</option>
           <option value="high">Élevée</option>
@@ -51,9 +53,9 @@ const EstimationForm = ({ onSubmit }: any) => {
       <div>
         <label>Nombre de fonctionnalités :</label>
         <input 
-          type="number" 
+          type="number"
           value={features} 
-          onChange={(e : any) => setFeatures(e.target.value)} 
+          onChange={(e) => setFeatures(Number(e.target.value))} 
           min="1" 
           required 
         />
@@ -63,7 +65,7 @@ const EstimationForm = ({ onSubmit }: any) => {
         <input 
           type="number" 
           value={hourlyRate} 
-          onChange={(e : any) => setHourlyRate(e.target.value)} 
+          onChange={(e) => setHourlyRate(Number(e.target.value))} 
           min="1" 
           required 
         />
@@ -73,7 +75,7 @@ const EstimationForm = ({ onSubmit }: any) => {
         <input 
           type="number" 
           value={estimatedHours} 
-          onChange={(e : any) => setEstimatedHours(e.target.value)} 
+          onChange={(e) => setEstimatedHours(Number(e.target.value))} 
           min="1" 
           required 
         />

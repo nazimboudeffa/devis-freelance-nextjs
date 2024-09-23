@@ -5,8 +5,18 @@ import EstimationForm from './components/EstimationForm';
 import Result from './components/Result';
 import { calculateEstimation } from './utils/calculate';
 
-export default function Home() {
-  const [estimation, setEstimation] = useState(null);
+interface Estimation {
+  projectName: string;
+  complexity: 'low' | 'medium' | 'high';
+  features: number;
+  hourlyRate: number;
+  estimatedHours: number;
+  totalCost: number;
+  totalHours: number;
+}
+
+const Home: React.FC = () =>{
+  const [estimation, setEstimation] = useState<Estimation | null>(null);
 
   const handleFormSubmit = (formData : any) => {
     const result = calculateEstimation(formData);
@@ -25,3 +35,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;

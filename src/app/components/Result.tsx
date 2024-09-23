@@ -1,4 +1,15 @@
-const Result = ({ estimation } : any) => {
+interface ResultProps {
+  estimation: {
+    projectName: string;
+    complexity: 'low' | 'medium' | 'high';
+    features: number;
+    hourlyRate: number;
+    estimatedHours: number;
+    totalCost: number;
+  };
+}
+
+const Result: React.FC<ResultProps> = ({ estimation }) => {
     const { projectName, complexity, features, hourlyRate, estimatedHours, totalCost } = estimation;
   
     return (

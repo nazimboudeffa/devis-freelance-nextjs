@@ -1,4 +1,16 @@
-export const calculateEstimation = ({ complexity, features, hourlyRate, estimatedHours } : any) => {
+interface EstimationInput {
+  complexity: 'low' | 'medium' | 'high';
+  features: number;
+  hourlyRate: number;
+  estimatedHours: number;
+}
+
+interface EstimationResult {
+  totalHours: number;
+  totalCost: number;
+}
+
+export const calculateEstimation = ({ complexity, features, hourlyRate, estimatedHours }: EstimationInput): EstimationResult => {
     let complexityMultiplier = 1;
   
     switch (complexity) {
