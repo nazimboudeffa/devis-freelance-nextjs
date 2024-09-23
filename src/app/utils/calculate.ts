@@ -29,7 +29,7 @@ export const calculateEstimation = ({ complexity, features, hourlyRate, estimate
   
     return {
       totalHours,
-      totalCost: totalCost.toFixed(2),
+      totalCost: parseFloat(totalCost.toFixed(2)),
     };
   };
   
