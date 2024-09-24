@@ -39,66 +39,71 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   return (
     <>
     <form onSubmit={handleSubmit}>
-      <div className="flex justify-between">
-        <label>Nom du projet </label>
+    <div className="w-full">
+        <label>Nom du projet
         <input 
           type="text" 
           value={projectName} 
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setProjectName(e.target.value)} 
           required 
         />
+        </label>
       </div>
       <br />
-      <div className="flex justify-between">
-        <label>Complexité </label>
-        <select value={complexity} className="select select-bordered w-full max-w-xs" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setComplexity(e.target.value as Complexity)}>
+      <div className="w-full">
+        <label>Complexité
+        <select value={complexity} className="select select-bordered w-full" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setComplexity(e.target.value as Complexity)}>
           <option value="low">Faible</option>
           <option value="medium">Moyenne</option>
           <option value="high">Élevée</option>
         </select>
+        </label>
       </div>
       <br/>
-      <div className="flex justify-between">
-        <label>Nombre de fonctionnalités </label>
+      <div className="w-full">
+        <label>Nombre de fonctionnalités
         <input 
           type="number"
           value={features}
-          className="input input-bordered w-full max-w-xs" 
+          className="input input-bordered w-full" 
           onChange={(e) => setFeatures(Number(e.target.value))} 
           min="1" 
           required 
         />
+        </label>
       </div>
       <br />
-      <div className="flex justify-between">
-        <label>TJM (€/jour) </label>
+      <div className="w-full">
+        <label>TJM (€/jour)
         <input
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full"
           type="number"
           value={dailyRate}
           onChange={(e) => setDailyRate(Number(e.target.value))}
           min="1"
           required
         />
+        </label>
       </div>
       <br />
-      <div className="flex justify-between">
-        <label>Estimation des jours </label>
+      <div className="w-full">
+        <label>Estimation des jours
         <input
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full"
           type="number"
           value={estimatedDays}
           onChange={(e) => setEstimatedDays(Number(e.target.value))}
           min="1"
           required
         />
+        </label>
       </div>
       <br />
-      <div className="flex justify-between">
-        <label>Heures par jour </label>
+      <div className="w-full">
+        <label>Heures par jour
         <input
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full"
           type="number"
           value={hoursPerDay}
           onChange={(e) => setHoursPerDay(Number(e.target.value))}
@@ -106,6 +111,7 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
           max="24"
           required
         />
+        </label>
       </div>
       <br/>
       <button className="btn btn-primary" type="submit">Estimer le devis</button>

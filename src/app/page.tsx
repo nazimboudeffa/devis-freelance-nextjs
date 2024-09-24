@@ -33,7 +33,7 @@ const Home: React.FC = () =>{
   return (
     <div className="p-5">
       <div className="flex justify-between align-center">
-      <h1>Application de Devis pour Freelances</h1>
+      <h1>Devis pour Freelances</h1>
       <Link href="https://fr.tipeee.com/nazimboudeffa" passHref={true}>                   
       <Image
           src="tipeee_tip_btn.svg"
