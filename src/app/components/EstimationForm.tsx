@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 
 interface FormData {
   projectName: string;
   complexity: 'low' | 'medium' | 'high';
   features: number;
-  hourlyRate: number;
-  estimatedHours: number;
+  dailyRate: number; // TJM (Tarif Journalier Moyen)
+  estimatedDays: number;
+  hoursPerDay: number; // Nombre d'heures par jour
 }
 
 interface EstimationFormProps {
@@ -20,8 +19,10 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   const [projectName, setProjectName] = useState<string>('');
   const [complexity, setComplexity] = useState<Complexity>('low');
   const [features, setFeatures] = useState<number>(1);
-  const [hourlyRate, setHourlyRate] = useState<number>(50); // Par défaut, 50€/h
-  const [estimatedHours, setEstimatedHours] = useState<number>(10);
+  const [dailyRate, setDailyRate] = useState<number>(250); // Exemple : 400 €/jour
+  const [estimatedDays, setEstimatedDays] = useState<number>(5); // Estimation en jours
+  const [hoursPerDay, setHoursPerDay] = useState<number>(8); // Par défaut, 8 heures/jour
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,24 +30,17 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
       projectName,
       complexity,
       features,
-      hourlyRate,
-      estimatedHours,
+      dailyRate,
+      estimatedDays,
+      hoursPerDay,
     });
   };
 
   return (
     <>
-    <Link href="https://fr.tipeee.com/nazimboudeffa" passHref={true}>                   
-      <Image
-          src="tipeee_tip_btn.svg"
-          alt="tip"
-          height={80}
-          width={70} 
-      />
-    </Link>
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Nom du projet :</label>
+      <div className="flex justify-between">
+        <label>Nom du projet </label>
         <input 
           type="text" 
           value={projectName} 
@@ -55,9 +49,9 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
           required 
         />
       </div>
-      <br/>
-      <div>
-        <label>Complexité :</label>
+      <br />
+      <div className="flex justify-between">
+        <label>Complexité </label>
         <select value={complexity} className="select select-bordered w-full max-w-xs" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setComplexity(e.target.value as Complexity)}>
           <option value="low">Faible</option>
           <option value="medium">Moyenne</option>
@@ -65,8 +59,8 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
         </select>
       </div>
       <br/>
-      <div>
-        <label>Nombre de fonctionnalités :</label>
+      <div className="flex justify-between">
+        <label>Nombre de fonctionnalités </label>
         <input 
           type="number"
           value={features}
@@ -76,28 +70,41 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
           required 
         />
       </div>
-      <br/>
-      <div>
-        <label>Taux horaire (€/h) :</label>
-        <input 
-          type="number" 
-          value={hourlyRate} 
+      <br />
+      <div className="flex justify-between">
+        <label>TJM (€/jour) </label>
+        <input
           className="input input-bordered w-full max-w-xs"
-          onChange={(e) => setHourlyRate(Number(e.target.value))} 
-          min="1" 
-          required 
+          type="number"
+          value={dailyRate}
+          onChange={(e) => setDailyRate(Number(e.target.value))}
+          min="1"
+          required
         />
       </div>
-      <br/>
-      <div>
-        <label>Estimation des heures :</label>
-        <input 
-          type="number" 
-          value={estimatedHours} 
+      <br />
+      <div className="flex justify-between">
+        <label>Estimation des jours </label>
+        <input
           className="input input-bordered w-full max-w-xs"
-          onChange={(e) => setEstimatedHours(Number(e.target.value))} 
-          min="1" 
-          required 
+          type="number"
+          value={estimatedDays}
+          onChange={(e) => setEstimatedDays(Number(e.target.value))}
+          min="1"
+          required
+        />
+      </div>
+      <br />
+      <div className="flex justify-between">
+        <label>Heures par jour </label>
+        <input
+          className="input input-bordered w-full max-w-xs"
+          type="number"
+          value={hoursPerDay}
+          onChange={(e) => setHoursPerDay(Number(e.target.value))}
+          min="1"
+          max="24"
+          required
         />
       </div>
       <br/>

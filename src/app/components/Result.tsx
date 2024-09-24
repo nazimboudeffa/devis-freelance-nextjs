@@ -3,26 +3,28 @@ interface ResultProps {
     projectName: string;
     complexity: 'low' | 'medium' | 'high';
     features: number;
-    hourlyRate: number;
-    estimatedHours: number;
+    dailyRate: number;
+    estimatedDays: number;
+    hoursPerDay: number;
     totalCost: number;
   };
 }
 
 const Result: React.FC<ResultProps> = ({ estimation }) => {
-    const { projectName, complexity, features, hourlyRate, estimatedHours, totalCost } = estimation;
+  const { projectName, complexity, features, dailyRate, estimatedDays, hoursPerDay, totalCost } = estimation;
+
+  return (
+    <div>
+      <h2>Résumé du projet : {projectName}</h2>
+      <p>Complexité : {complexity}</p>
+      <p>Nombre de fonctionnalités : {features}</p>
+      <p>TJM : {dailyRate} €/jour</p>
+      <p>Temps estimé : {estimatedDays} jours</p>
+      <p>Heures par jour : {hoursPerDay}</p>
+      <h3>Coût total estimé : {totalCost} €</h3>
+    </div>
+  );
+}
   
-    return (
-      <div>
-        <h2>Résumé du projet : {projectName}</h2>
-        <p>Complexité : {complexity}</p>
-        <p>Nombre de fonctionnalités : {features}</p>
-        <p>Taux horaire : {hourlyRate} €/h</p>
-        <p>Temps estimé : {estimatedHours} heures</p>
-        <h3>Coût total estimé : {totalCost} €</h3>
-      </div>
-    );
-  };
-  
-  export default Result;
+export default Result;
   

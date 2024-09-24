@@ -1,16 +1,17 @@
 interface EstimationInput {
   complexity: 'low' | 'medium' | 'high';
   features: number;
-  hourlyRate: number;
-  estimatedHours: number;
+  dailyRate: number; // TJM
+  estimatedDays: number;
+  hoursPerDay: number; // Nombre d'heures travaillées par jour
 }
 
 interface EstimationResult {
-  totalHours: number;
+  totalDays: number;
   totalCost: number;
 }
 
-export const calculateEstimation = ({ complexity, features, hourlyRate, estimatedHours }: EstimationInput): EstimationResult => {
+export const calculateEstimation = ({ complexity, features, dailyRate, estimatedDays, hoursPerDay, }: EstimationInput): EstimationResult => {
     let complexityMultiplier = 1;
   
     switch (complexity) {
@@ -24,11 +25,14 @@ export const calculateEstimation = ({ complexity, features, hourlyRate, estimate
         complexityMultiplier = 1;
     }
   
-    const totalHours = estimatedHours * features * complexityMultiplier;
-    const totalCost = totalHours * hourlyRate;
+    // Calcul du nombre total de jours en fonction des fonctionnalités et de la complexité
+    const totalDays = estimatedDays * features * complexityMultiplier;
+    
+    // Calcul du coût total basé sur le TJM et le nombre total de jours
+    const totalCost = totalDays * dailyRate;
   
     return {
-      totalHours,
+      totalDays,
       totalCost: parseFloat(totalCost.toFixed(2)),
     };
   };
