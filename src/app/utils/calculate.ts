@@ -29,7 +29,7 @@ export const calculateEstimation = ({ complexity, features, dailyRate, estimated
     const totalDays = estimatedDays * features * complexityMultiplier;
     
     // Calcul du coût total basé sur le TJM et le nombre total de jours
-    const totalCost = totalDays * dailyRate;
+    const totalCost = totalDays * dailyRate * (hoursPerDay / 8);
   
     return {
       totalDays,
