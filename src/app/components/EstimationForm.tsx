@@ -150,17 +150,18 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
       </div>
       <br />
       <div>
-        <label>Technologie :</label>
+        <label>Technologie</label>
         <Select
           options={technologyOptions}
           onChange={handleTechnologySelection}
           placeholder="Sélectionnez la technologie"
         />
       </div>
-      <br />
       {availableTasks.length > 0 && (
+        <>
+        <br />
         <div>
-          <label>Tâches à réaliser :</label>
+          <label>Tâches à réaliser</label>
           <Select
             isMulti
             options={availableTasks}
@@ -168,6 +169,7 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
             placeholder="Sélectionnez les tâches"
           />
         </div>
+        </>
       )}
       <div className="w-full">
         {tasks.length > 0 && (
