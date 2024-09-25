@@ -88,9 +88,9 @@ const technologyTasksMap: { [key: string]: OptionType[] } = {
 const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   const [projectName, setProjectName] = useState<string>('Projet Freelance');
   const [complexity, setComplexity] = useState<Complexity>('low');
-  const [features, setFeatures] = useState<number>(1);
+  const [features, setFeatures] = useState<number>(0);
   const [dailyRate, setDailyRate] = useState<number>(250); // Exemple : 400 €/jour
-  const [estimatedDays, setEstimatedDays] = useState<number>(5); // Estimation en jours
+  const [estimatedDays, setEstimatedDays] = useState<number>(1); // Estimation en jours
   const [hoursPerDay, setHoursPerDay] = useState<number>(8); // Par défaut, 8 heures/jour
   const [tasks, setTasks] = useState<string[]>([]); // Stocke les tâches sélectionnées
   const [technology, setTechnology] = useState<string>(''); // Technologie sélectionnée
@@ -102,6 +102,7 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   ) => {
     const selectedTasks = selectedOptions.map((option) => option.value);
     setTasks(selectedTasks);
+    setFeatures(selectedTasks.length); // Mettre à jour le nombre de fonctionnalités
   };
 
   // Gestion de la sélection de la technologie via react-select
@@ -189,7 +190,7 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
           value={features}
           className="input input-bordered w-full" 
           onChange={(e) => setFeatures(Number(e.target.value))} 
-          min="1" 
+          min="0" 
           required 
         />
         </label>
