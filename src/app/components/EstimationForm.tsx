@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Select, { MultiValue, ActionMeta } from 'react-select';
+import Select, { MultiValue } from 'react-select';
 
 interface FormData {
   projectName: string;
@@ -48,7 +48,6 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   // Gestion de la sélection des tâches via react-select
   const handleTaskSelection = (
     selectedOptions: MultiValue<OptionType>, // Utilisation de MultiValue pour les options multiples
-    actionMeta: ActionMeta<OptionType> // Métadonnées liées à l'action
   ) => {
     const selectedTasks = selectedOptions ? selectedOptions.map((option) => option.value) : [];
     setTasks(selectedTasks);
