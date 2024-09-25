@@ -8,7 +8,14 @@ interface FormData {
   dailyRate: number; // TJM (Tarif Journalier Moyen)
   estimatedDays: number;
   hoursPerDay: number; // Nombre d'heures par jour
+  tasks: string[]; // Liste des tâches sélectionnées
 }
+
+// Définition du type des options
+type OptionType = {
+  value: string;
+  label: string;
+};
 
 interface EstimationFormProps {
   onSubmit: (formData: FormData) => void;
@@ -17,7 +24,7 @@ interface EstimationFormProps {
 type Complexity = 'low' | 'medium' | 'high';
 
 // Liste des tâches pour un projet SaaS Next.js
-const taskOptions = [
+const taskOptions: OptionType[] = [
   { value: 'Configuration du projet Next.js', label: 'Configuration du projet Next.js' },
   { value: 'Développement de l\'authentification utilisateur', label: 'Développement de l\'authentification utilisateur' },
   { value: 'Intégration d\'une API REST/GraphQL', label: 'Intégration d\'une API REST/GraphQL' },
@@ -39,8 +46,8 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   const [tasks, setTasks] = useState<string[]>([]); // Stocke les tâches sélectionnées
 
   // Gestion de la sélection des tâches via react-select
-  const handleTaskSelection = (selectedOptions: any) => {
-    const selectedTasks = selectedOptions ? selectedOptions.map((option: any) => option.value) : [];
+  const handleTaskSelection = (selectedOptions: OptionType[] | null) => {
+    const selectedTasks = selectedOptions ? selectedOptions.map((option) => option.value) : [];
     setTasks(selectedTasks);
   };
 
