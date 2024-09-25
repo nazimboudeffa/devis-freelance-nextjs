@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Select, { MultiValue } from 'react-select';
+import Select, { MultiValue, SingleValue } from 'react-select';
 
 interface FormData {
   projectName: string;
@@ -9,6 +9,7 @@ interface FormData {
   estimatedDays: number;
   hoursPerDay: number; // Nombre d'heures par jour
   tasks: string[]; // Liste des tâches sélectionnées
+  technology: string; // Technologie sélectionnée
 }
 
 // Définition du type des options
@@ -23,18 +24,66 @@ interface EstimationFormProps {
 
 type Complexity = 'low' | 'medium' | 'high';
 
-// Liste des tâches pour un projet SaaS Next.js
-const taskOptions: OptionType[] = [
-  { value: 'Configuration du projet Next.js', label: 'Configuration du projet Next.js' },
-  { value: 'Développement de l\'authentification utilisateur', label: 'Développement de l\'authentification utilisateur' },
-  { value: 'Intégration d\'une API REST/GraphQL', label: 'Intégration d\'une API REST/GraphQL' },
-  { value: 'Mise en place de la gestion des utilisateurs', label: 'Mise en place de la gestion des utilisateurs' },
-  { value: 'Mise en place d\'un système de paiement', label: 'Mise en place d\'un système de paiement' },
-  { value: 'Développement d\'un tableau de bord', label: 'Développement d\'un tableau de bord' },
-  { value: 'Tests unitaires et E2E', label: 'Tests unitaires et E2E' },
-  { value: 'Optimisation SEO', label: 'Optimisation SEO' },
-  { value: 'Déploiement sur Vercel/Heroku', label: 'Déploiement sur Vercel/Heroku' },
+// Liste des technologies possibles pour un projet SaaS Next.js
+const technologyOptions: OptionType[] = [
+  { value: 'nextjs', label: 'Next.js' },
+  { value: 'react', label: 'React.js' },
+  { value: 'typescript', label: 'TypeScript' },
+  { value: 'nodejs', label: 'Node.js' },
+  { value: 'graphql', label: 'GraphQL' },
+  { value: 'tailwindcss', label: 'Tailwind CSS' },
+  { value: 'prisma', label: 'Prisma' },
+  { value: 'mongodb', label: 'MongoDB' },
+  { value: 'postgresql', label: 'PostgreSQL' },
 ];
+
+// Mappage des technologies aux tâches associées
+const technologyTasksMap: { [key: string]: OptionType[] } = {
+  nextjs: [
+    { value: 'Configuration du projet Next.js', label: 'Configuration du projet Next.js' },
+    { value: 'Développement de l\'authentification utilisateur', label: 'Développement de l\'authentification utilisateur' },
+    { value: 'Intégration d\'une API REST', label: 'Intégration d\'une API REST' },
+    { value: 'Mise en place de la gestion des utilisateurs', label: 'Mise en place de la gestion des utilisateurs' },
+    { value: 'Mise en place d\'un système de paiement', label: 'Mise en place d\'un système de paiement' },
+    { value: 'Développement d\'un tableau de bord', label: 'Développement d\'un tableau de bord' },
+    { value: 'Tests unitaires', label: 'Tests unitaires' },
+    { value: 'Optimisation SEO', label: 'Optimisation SEO' },
+    { value: 'Déploiement sur Vercel/Heroku', label: 'Déploiement sur Vercel/Heroku' },
+  ],
+  react: [
+    { value: 'Configuration du projet React', label: 'Configuration du projet React' },
+    { value: 'Développement des composants', label: 'Développement des composants' },
+    { value: 'Gestion de l\'état avec Redux', label: 'Gestion de l\'état avec Redux' },
+  ],
+  typescript: [
+    { value: 'Ajout de TypeScript au projet', label: 'Ajout de TypeScript au projet' },
+    { value: 'Typage des composants', label: 'Typage des composants' },
+  ],
+  nodejs: [
+    { value: 'Création de l\'API avec Node.js', label: 'Création de l\'API avec Node.js' },
+    { value: 'Mise en place d\'Express', label: 'Mise en place d\'Express' },
+  ],
+  graphql: [
+    { value: 'Création d\'une API GraphQL', label: 'Création d\'une API GraphQL' },
+    { value: 'Mise en place de Apollo Server', label: 'Mise en place de Apollo Server' },
+  ],
+  tailwindcss: [
+    { value: 'Ajout de Tailwind CSS', label: 'Ajout de Tailwind CSS' },
+    { value: 'Création de composants stylisés', label: 'Création de composants stylisés' },
+  ],
+  prisma: [
+    { value: 'Intégration de Prisma', label: 'Intégration de Prisma' },
+    { value: 'Gestion des migrations de base de données', label: 'Gestion des migrations de base de données' },
+  ],
+  mongodb: [
+    { value: 'Connexion à MongoDB', label: 'Connexion à MongoDB' },
+    { value: 'Création des modèles de données', label: 'Création des modèles de données' },
+  ],
+  postgresql: [
+    { value: 'Connexion à PostgreSQL', label: 'Connexion à PostgreSQL' },
+    { value: 'Création des schémas de base de données', label: 'Création des schémas de base de données' },
+  ],
+};
 
 const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   const [projectName, setProjectName] = useState<string>('Projet Freelance');
@@ -44,13 +93,30 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   const [estimatedDays, setEstimatedDays] = useState<number>(5); // Estimation en jours
   const [hoursPerDay, setHoursPerDay] = useState<number>(8); // Par défaut, 8 heures/jour
   const [tasks, setTasks] = useState<string[]>([]); // Stocke les tâches sélectionnées
+  const [technology, setTechnology] = useState<string>(''); // Technologie sélectionnée
+  const [availableTasks, setAvailableTasks] = useState<OptionType[]>([]); // Tâches disponibles selon la technologie
 
   // Gestion de la sélection des tâches via react-select
   const handleTaskSelection = (
     selectedOptions: MultiValue<OptionType>, // Utilisation de MultiValue pour les options multiples
   ) => {
-    const selectedTasks = selectedOptions ? selectedOptions.map((option) => option.value) : [];
+    const selectedTasks = selectedOptions.map((option) => option.value);
     setTasks(selectedTasks);
+  };
+
+  // Gestion de la sélection de la technologie via react-select
+  const handleTechnologySelection = (
+    selectedOption: SingleValue<OptionType> // Utilisation de SingleValue pour la sélection simple
+  ) => {
+    const selectedTech = selectedOption?.value || '';
+    setTechnology(selectedTech);
+
+    // Mettre à jour les tâches disponibles en fonction de la technologie sélectionnée
+    if (selectedTech) {
+      setAvailableTasks(technologyTasksMap[selectedTech] || []);
+    } else {
+      setAvailableTasks([]);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,6 +129,7 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
       estimatedDays,
       hoursPerDay,
       tasks,
+      technology,
     });
   };
 
@@ -70,7 +137,7 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
     <>
     <div className="w-[500px]">
     <form onSubmit={handleSubmit}>
-    <div className="w-full">
+      <div className="w-full">
         <label>Nom du projet
         <input 
           type="text" 
@@ -82,16 +149,26 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
         </label>
       </div>
       <br />
-      <div className="w-full">
-        <label>Tâches à réaliser
+      <div>
+        <label>Technologie :</label>
         <Select
-          isMulti
-          options={taskOptions}
-          onChange={handleTaskSelection}
-          placeholder="Sélectionnez les tâches"
+          options={technologyOptions}
+          onChange={handleTechnologySelection}
+          placeholder="Sélectionnez la technologie"
         />
-        </label>
       </div>
+      <br />
+      {availableTasks.length > 0 && (
+        <div>
+          <label>Tâches à réaliser :</label>
+          <Select
+            isMulti
+            options={availableTasks}
+            onChange={handleTaskSelection}
+            placeholder="Sélectionnez les tâches"
+          />
+        </div>
+      )}
       <div className="w-full">
         {tasks.length > 0 && (
             <ul>
