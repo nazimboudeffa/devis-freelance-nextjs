@@ -171,15 +171,6 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
         </div>
         </>
       )}
-      <div className="w-full">
-        {tasks.length > 0 && (
-            <ul>
-              {tasks.map((task) => (
-                <li key={task}>{task}</li>
-              ))}
-            </ul>
-        )}
-      </div>
       <br />
       <div className="w-full">
         <label>Complexité
