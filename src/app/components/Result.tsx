@@ -1,6 +1,7 @@
 interface ResultProps {
   estimation: {
     projectName: string;
+    tasks: string[];
     complexity: 'low' | 'medium' | 'high';
     features: number;
     dailyRate: number;
@@ -11,7 +12,7 @@ interface ResultProps {
 }
 
 const Result: React.FC<ResultProps> = ({ estimation }) => {
-  const { projectName, complexity, features, dailyRate, estimatedDays, hoursPerDay, totalCost } = estimation;
+  const { projectName, tasks, complexity, features, dailyRate, estimatedDays, hoursPerDay, totalCost } = estimation;
 
   return (
     <div>
@@ -22,6 +23,12 @@ const Result: React.FC<ResultProps> = ({ estimation }) => {
       <p>Temps estimé : {estimatedDays} jours</p>
       <p>Heures par jour : {hoursPerDay}</p>
       <h3>Coût total estimé : {totalCost} €</h3>
+      <h4>Tâches sélectionnées :</h4>
+      <ul>
+        {tasks.map((task) => (
+          <li key={task}>{task}</li>
+        ))}
+      </ul>
     </div>
   );
 }

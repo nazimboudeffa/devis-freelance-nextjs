@@ -17,6 +17,7 @@ interface Estimation {
   estimatedDays: number;
   hoursPerDay: number;
   totalCost: number;
+  tasks: string[]; // Liste des tâches sélectionnées
 }
 
 const Home: React.FC = () =>{
