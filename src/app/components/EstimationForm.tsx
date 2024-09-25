@@ -150,6 +150,16 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
         </label>
       </div>
       <br />
+      <div className="w-full">
+        <label>Complexité
+        <select value={complexity} className="select select-bordered w-full" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setComplexity(e.target.value as Complexity)}>
+          <option value="low">Faible</option>
+          <option value="medium">Moyenne</option>
+          <option value="high">Élevée</option>
+        </select>
+        </label>
+      </div>
+      <br/>
       <div>
         <label>Technologie</label>
         <Select
@@ -173,16 +183,6 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
         </>
       )}
       <br />
-      <div className="w-full">
-        <label>Complexité
-        <select value={complexity} className="select select-bordered w-full" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setComplexity(e.target.value as Complexity)}>
-          <option value="low">Faible</option>
-          <option value="medium">Moyenne</option>
-          <option value="high">Élevée</option>
-        </select>
-        </label>
-      </div>
-      <br/>
       <div className="w-full">
         <label>Nombre de fonctionnalités
         <input 
