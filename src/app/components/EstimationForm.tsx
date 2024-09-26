@@ -6,16 +6,17 @@ interface FormData {
   complexity: 'low' | 'medium' | 'high';
   features: number;
   dailyRate: number; // TJM (Tarif Journalier Moyen)
-  estimatedDays: number;
   hoursPerDay: number; // Nombre d'heures par jour
   tasks: string[]; // Liste des tâches sélectionnées
   technology: string; // Technologie sélectionnée
+  totalHours: number; // Durée totale estimée en heures
 }
 
 // Définition du type des options
 type OptionType = {
   value: string;
   label: string;
+  estimatedHours: number; // Nouveau champ pour le temps estimé de la tâche
 };
 
 interface EstimationFormProps {
@@ -26,62 +27,56 @@ type Complexity = 'low' | 'medium' | 'high';
 
 // Liste des technologies possibles pour un projet SaaS Next.js
 const technologyOptions: OptionType[] = [
-  { value: 'nextjs', label: 'Next.js' },
-  { value: 'react', label: 'React.js' },
-  { value: 'typescript', label: 'TypeScript' },
-  { value: 'nodejs', label: 'Node.js' },
-  { value: 'graphql', label: 'GraphQL' },
-  { value: 'tailwindcss', label: 'Tailwind CSS' },
-  { value: 'prisma', label: 'Prisma' },
-  { value: 'mongodb', label: 'MongoDB' },
-  { value: 'postgresql', label: 'PostgreSQL' },
+  { value: 'nextjs', label: 'Next.js', estimatedHours: 0 },
+  { value: 'react', label: 'React.js', estimatedHours: 0 },
+  { value: 'typescript', label: 'TypeScript', estimatedHours: 0 },
+  { value: 'nodejs', label: 'Node.js', estimatedHours: 0 },
+  { value: 'graphql', label: 'GraphQL', estimatedHours: 0 },
+  { value: 'tailwindcss', label: 'Tailwind CSS', estimatedHours: 0 },
+  { value: 'prisma', label: 'Prisma', estimatedHours: 0 },
+  { value: 'mongodb', label: 'MongoDB', estimatedHours: 0 },
+  { value: 'postgresql', label: 'PostgreSQL', estimatedHours: 0 },
 ];
 
-// Mappage des technologies aux tâches associées
+// Mappage des technologies aux tâches associées, avec le temps estimé pour chaque tâche
 const technologyTasksMap: { [key: string]: OptionType[] } = {
   nextjs: [
-    { value: 'Configuration du projet Next.js', label: 'Configuration du projet Next.js' },
-    { value: 'Développement de l\'authentification utilisateur', label: 'Développement de l\'authentification utilisateur' },
-    { value: 'Intégration d\'une API REST', label: 'Intégration d\'une API REST' },
-    { value: 'Mise en place de la gestion des utilisateurs', label: 'Mise en place de la gestion des utilisateurs' },
-    { value: 'Mise en place d\'un système de paiement', label: 'Mise en place d\'un système de paiement' },
-    { value: 'Développement d\'un tableau de bord', label: 'Développement d\'un tableau de bord' },
-    { value: 'Tests unitaires', label: 'Tests unitaires' },
-    { value: 'Optimisation SEO', label: 'Optimisation SEO' },
-    { value: 'Déploiement sur Vercel/Heroku', label: 'Déploiement sur Vercel/Heroku' },
+    { value: 'Configuration du projet Next.js', label: 'Configuration du projet Next.js', estimatedHours: 8 },
+    { value: 'Routing dynamique', label: 'Routing dynamique', estimatedHours: 5 },
+    { value: 'Optimisation du rendu côté serveur', label: 'Optimisation du rendu côté serveur', estimatedHours: 7 },
   ],
   react: [
-    { value: 'Configuration du projet React', label: 'Configuration du projet React' },
-    { value: 'Développement des composants', label: 'Développement des composants' },
-    { value: 'Gestion de l\'état avec Redux', label: 'Gestion de l\'état avec Redux' },
+    { value: 'Configuration du projet React', label: 'Configuration du projet React', estimatedHours: 6 },
+    { value: 'Développement des composants', label: 'Développement des composants', estimatedHours: 10 },
+    { value: 'Gestion de l\'état avec Redux', label: 'Gestion de l\'état avec Redux', estimatedHours: 8 },
   ],
   typescript: [
-    { value: 'Ajout de TypeScript au projet', label: 'Ajout de TypeScript au projet' },
-    { value: 'Typage des composants', label: 'Typage des composants' },
+    { value: 'Ajout de TypeScript au projet', label: 'Ajout de TypeScript au projet', estimatedHours: 4 },
+    { value: 'Typage des composants', label: 'Typage des composants', estimatedHours: 6 },
   ],
   nodejs: [
-    { value: 'Création de l\'API avec Node.js', label: 'Création de l\'API avec Node.js' },
-    { value: 'Mise en place d\'Express', label: 'Mise en place d\'Express' },
+    { value: 'Création de l\'API avec Node.js', label: 'Création de l\'API avec Node.js', estimatedHours: 10 },
+    { value: 'Mise en place d\'Express', label: 'Mise en place d\'Express', estimatedHours: 5 },
   ],
   graphql: [
-    { value: 'Création d\'une API GraphQL', label: 'Création d\'une API GraphQL' },
-    { value: 'Mise en place de Apollo Server', label: 'Mise en place de Apollo Server' },
+    { value: 'Création d\'une API GraphQL', label: 'Création d\'une API GraphQL', estimatedHours: 8 },
+    { value: 'Mise en place de Apollo Server', label: 'Mise en place de Apollo Server', estimatedHours: 6 },
   ],
   tailwindcss: [
-    { value: 'Ajout de Tailwind CSS', label: 'Ajout de Tailwind CSS' },
-    { value: 'Création de composants stylisés', label: 'Création de composants stylisés' },
+    { value: 'Ajout de Tailwind CSS', label: 'Ajout de Tailwind CSS', estimatedHours: 3 },
+    { value: 'Création de composants stylisés', label: 'Création de composants stylisés', estimatedHours: 7 },
   ],
   prisma: [
-    { value: 'Intégration de Prisma', label: 'Intégration de Prisma' },
-    { value: 'Gestion des migrations de base de données', label: 'Gestion des migrations de base de données' },
+    { value: 'Intégration de Prisma', label: 'Intégration de Prisma', estimatedHours: 5 },
+    { value: 'Gestion des migrations de base de données', label: 'Gestion des migrations de base de données', estimatedHours: 4 },
   ],
   mongodb: [
-    { value: 'Connexion à MongoDB', label: 'Connexion à MongoDB' },
-    { value: 'Création des modèles de données', label: 'Création des modèles de données' },
+    { value: 'Connexion à MongoDB', label: 'Connexion à MongoDB', estimatedHours: 6 },
+    { value: 'Création des modèles de données', label: 'Création des modèles de données', estimatedHours: 5 },
   ],
   postgresql: [
-    { value: 'Connexion à PostgreSQL', label: 'Connexion à PostgreSQL' },
-    { value: 'Création des schémas de base de données', label: 'Création des schémas de base de données' },
+    { value: 'Connexion à PostgreSQL', label: 'Connexion à PostgreSQL', estimatedHours: 6 },
+    { value: 'Création des schémas de base de données', label: 'Création des schémas de base de données', estimatedHours: 7 },
   ],
 };
 
@@ -90,11 +85,11 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
   const [complexity, setComplexity] = useState<Complexity>('low');
   const [features, setFeatures] = useState<number>(0);
   const [dailyRate, setDailyRate] = useState<number>(250); // Exemple : 400 €/jour
-  const [estimatedDays, setEstimatedDays] = useState<number>(1); // Estimation en jours
   const [hoursPerDay, setHoursPerDay] = useState<number>(8); // Par défaut, 8 heures/jour
   const [tasks, setTasks] = useState<string[]>([]); // Stocke les tâches sélectionnées
   const [technology, setTechnology] = useState<string>(''); // Technologie sélectionnée
   const [availableTasks, setAvailableTasks] = useState<OptionType[]>([]); // Tâches disponibles selon la technologie
+  const [totalHours, setTotalHours] = useState<number>(0); // Durée totale estimée en heures
 
   // Gestion de la sélection des tâches via react-select
   const handleTaskSelection = (
@@ -103,6 +98,11 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
     const selectedTasks = selectedOptions.map((option) => option.value);
     setTasks(selectedTasks);
     setFeatures(selectedTasks.length); // Mettre à jour le nombre de fonctionnalités
+
+    // Calcul du temps total estimé pour les tâches sélectionnées
+    const total = selectedOptions.reduce((sum, option) => sum + option.estimatedHours, 0);
+    setTotalHours(total);
+    console.log('Total hours:', total);
   };
 
   // Gestion de la sélection de la technologie via react-select
@@ -127,10 +127,10 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
       complexity,
       features,
       dailyRate,
-      estimatedDays,
       hoursPerDay,
       tasks,
       technology,
+      totalHours,
     });
   };
 
@@ -184,38 +184,12 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
       )}
       <br />
       <div className="w-full">
-        <label>Nombre de fonctionnalités
-        <input 
-          type="number"
-          value={features}
-          className="input input-bordered w-full" 
-          onChange={(e) => setFeatures(Number(e.target.value))} 
-          min="0" 
-          required 
-        />
-        </label>
-      </div>
-      <br />
-      <div className="w-full">
         <label>TJM (€/jour)
         <input
           className="input input-bordered w-full"
           type="number"
           value={dailyRate}
           onChange={(e) => setDailyRate(Number(e.target.value))}
-          min="1"
-          required
-        />
-        </label>
-      </div>
-      <br />
-      <div className="w-full">
-        <label>Estimation des jours
-        <input
-          className="input input-bordered w-full"
-          type="number"
-          value={estimatedDays}
-          onChange={(e) => setEstimatedDays(Number(e.target.value))}
           min="1"
           required
         />

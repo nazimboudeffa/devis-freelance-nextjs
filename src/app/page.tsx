@@ -14,19 +14,21 @@ interface Estimation {
   complexity: Complexity;
   features: number;
   dailyRate: number;
-  estimatedDays: number;
   hoursPerDay: number;
+  totalDays: number;
   totalCost: number;
   tasks: string[]; // Liste des tâches sélectionnées
+  totalHours: number; // Durée totale estimée en heures
 }
 
 const Home: React.FC = () =>{
   const [estimation, setEstimation] = useState<Estimation | null>(null);
 
-  const handleFormSubmit = (formData: Omit<Estimation, 'totalCost'>) => {
+  const handleFormSubmit = (formData: Omit<Estimation, 'totalCost' | 'totalDays'>) => {
     const result = calculateEstimation(formData);
     setEstimation({
       ...formData,
+      totalDays: result.totalDays,
       totalCost: result.totalCost,
     });
   };
