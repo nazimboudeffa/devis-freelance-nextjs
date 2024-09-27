@@ -4,11 +4,23 @@ import Image from 'next/image';
 export default function NavBar() {
     return (
         <nav className="flex justify-between align-center">
-            <div className='h-[22px] flex-1'>
+            <div >
                     <Link 
                         href='/'
                     >
-                        Devis pour Freelances
+                        <Image
+                            src="invoice.svg"
+                            alt="Invoice"
+                            height={40}
+                            width={40}
+                        />
+                    </Link>
+            </div>
+            <div>
+                    <Link 
+                        href='/'
+                    >
+                        <span className="flex hidden md:block">Devis pour Freelances</span>
                     </Link>
             </div>
             <div className="flex flex-row gap-2">

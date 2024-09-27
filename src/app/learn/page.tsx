@@ -17,6 +17,7 @@ const Learn: React.FC = () => {
 	return ( 
 		<div className="p-5">
 		<NavBar />
+		<div className="mt-5">
 		<table className='text-sm text-left sm:w-7/12 w-full max-w mx-auto'>
 		<thead className='text-xs text-gray-700 uppercase border-b '>
             <tr>
@@ -58,6 +59,7 @@ const Learn: React.FC = () => {
 			</tr>)})}
 		</tbody>
 		</table>
+		</div>
 		{youtubePlayer.isOpen && (
 			<div className='fixed top-0 left-0 h-screen w-screen flex items-center justify-center'>
 				<div
