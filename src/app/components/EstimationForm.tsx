@@ -156,7 +156,7 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
         </label>
       </div>
       <br/>
-      <button className="btn btn-primary" type="submit">Estimer le devis</button>
+      <button className="btn btn-primary w-full" type="submit">Estimer le devis</button>
     </form>
     </div>
     </>
