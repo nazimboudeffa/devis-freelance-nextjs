@@ -20,9 +20,9 @@ const DevisPage = () => {
   const totalHours = searchParams.get('totalHours');
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
       <div className="p-5">
       <NavBar />
-      <Suspense fallback={<p>Chargement...</p>}>
       <div className="flex flex-col items-center justify-center">
         <h1>Devis détaillé</h1>
         <div>
@@ -42,8 +42,8 @@ const DevisPage = () => {
           ))}
         </ul>
       </div>
-      </Suspense>
       </div>
+    </Suspense>
   );
 };
 
