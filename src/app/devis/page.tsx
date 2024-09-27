@@ -6,6 +6,17 @@ import NavBar from '../components/NavBar';
 import { useSearchParams } from 'next/navigation';
 
 const DevisPage = () => {
+  return (
+      <div className="p-5">
+      <NavBar />
+      <Suspense fallback={<p>Chargement...</p>}>
+        <DevisPageContent />
+      </Suspense>
+      </div>
+  );
+};
+
+const DevisPageContent = () => {
   const searchParams = useSearchParams();
   
   // Récupération des paramètres de l'URL
@@ -18,12 +29,9 @@ const DevisPage = () => {
   const totalCost = searchParams.get('totalCost');
   const tasks = searchParams.get('tasks')?.split(','); // Conversion en tableau
   const totalHours = searchParams.get('totalHours');
-
+  
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="p-5">
-      <NavBar />
-      <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
         <h1>Devis détaillé</h1>
         <div>
           <p><strong>Nom du projet :</strong> {projectName}</p>
@@ -41,10 +49,8 @@ const DevisPage = () => {
             <li key={index}>{task}</li>
           ))}
         </ul>
-      </div>
-      </div>
-    </Suspense>
-  );
-};
+    </div>
+  )
+}
 
 export default DevisPage;
