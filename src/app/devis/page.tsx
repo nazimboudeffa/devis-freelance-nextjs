@@ -1,7 +1,7 @@
 "use client";
 
 // app/devis/page.tsx
-import React from 'react';
+import { Suspense } from 'react';
 import NavBar from '../components/NavBar';
 import { useSearchParams } from 'next/navigation';
 
@@ -20,28 +20,30 @@ const DevisPage = () => {
   const totalHours = searchParams.get('totalHours');
 
   return (
-    <div className="p-5">
-    <NavBar />
-    <div className="flex flex-col items-center justify-center">
-      <h1>Devis détaillé</h1>
-      <div>
-        <p><strong>Nom du projet :</strong> {projectName}</p>
-        <p><strong>Complexité :</strong> {complexity}</p>
-        <p><strong>Nombre de fonctionnalités :</strong> {features}</p>
-        <p><strong>Taux journalier :</strong> {dailyRate} €</p>
-        <p><strong>Heures par jour :</strong> {hoursPerDay}</p>
-        <p><strong>Nombre total de jours :</strong> {totalDays}</p>
-        <p><strong>Total des heures estimées :</strong> {totalHours} h</p>
-        <p><strong>Coût total estimé :</strong> {totalCost} €</p>
+      <div className="p-5">
+      <NavBar />
+      <Suspense fallback={<p>Chargement...</p>}>
+      <div className="flex flex-col items-center justify-center">
+        <h1>Devis détaillé</h1>
+        <div>
+          <p><strong>Nom du projet :</strong> {projectName}</p>
+          <p><strong>Complexité :</strong> {complexity}</p>
+          <p><strong>Nombre de fonctionnalités :</strong> {features}</p>
+          <p><strong>Taux journalier :</strong> {dailyRate} €</p>
+          <p><strong>Heures par jour :</strong> {hoursPerDay}</p>
+          <p><strong>Nombre total de jours :</strong> {totalDays}</p>
+          <p><strong>Total des heures estimées :</strong> {totalHours} h</p>
+          <p><strong>Coût total estimé :</strong> {totalCost} €</p>
+        </div>
+        <h3>Tâches :</h3>
+        <ul>
+          {tasks?.map((task, index) => (
+            <li key={index}>{task}</li>
+          ))}
+        </ul>
       </div>
-      <h3>Tâches :</h3>
-      <ul>
-        {tasks?.map((task, index) => (
-          <li key={index}>{task}</li>
-        ))}
-      </ul>
-    </div>
-    </div>
+      </Suspense>
+      </div>
   );
 };
 
