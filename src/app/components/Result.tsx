@@ -35,7 +35,7 @@ const Result: React.FC<ResultProps> = ({ estimation }) => {
   };
 
   return (
-    <div className="w-[500px]">
+    <div className="w-80 md:w-[500px] mt-5">
       <div className="flex flex-col justify-center items-center">
         <p>Temps total estimé : {estimation.totalDays} jours</p>
         <p>Coût total estimé : {estimation.totalCost} €</p>

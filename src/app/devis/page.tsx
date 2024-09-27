@@ -29,9 +29,9 @@ const DevisPageContent = () => {
   const totalCost = searchParams.get('totalCost');
   const tasks = searchParams.get('tasks')?.split(','); // Conversion en tableau
   const totalHours = searchParams.get('totalHours');
-  
+
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center mt-5">
         <h1>Devis détaillé</h1>
         <div>
           <p><strong>Nom du projet :</strong> {projectName}</p>

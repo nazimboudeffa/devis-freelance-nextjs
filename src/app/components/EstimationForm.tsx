@@ -82,7 +82,7 @@ const EstimationForm: React.FC<EstimationFormProps> = ({ onSubmit }) => {
 
   return (
     <>
-    <div className="w-[500px]">
+    <div className="w-80 md:w-[500px] mt-5">
     <form onSubmit={handleSubmit}>
       <div className="w-full">
         <label>Nom du projet
