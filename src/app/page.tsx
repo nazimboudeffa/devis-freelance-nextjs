@@ -1,8 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import NavBar from './components/NavBar';
 import EstimationForm from './components/EstimationForm';
 import Result from './components/Result';
 import { calculateEstimation } from './utils/calculate';
@@ -35,27 +34,7 @@ const Home: React.FC = () =>{
 
   return (
     <div className="p-5">
-      <div className="flex justify-between align-center">
-      <h1>Devis pour Freelances</h1>
-      <div className="flex flex-row gap-2">
-        <Link href="https://github.com/nazimboudeffa/devis-freelance-nextjs" passHref={true}>                   
-        <Image
-            src="github.svg"
-            alt="GitHub"
-            height={40}
-            width={40} 
-        />
-        </Link>
-        <Link href="https://fr.tipeee.com/nazimboudeffa" passHref={true}>                   
-        <Image
-            src="tipeee_tip_btn.svg"
-            alt="tip"
-            height={80}
-            width={70} 
-        />
-        </Link>
-      </div>
-      </div>
+      <NavBar />
       <div className="flex flex-col items-center justify-center">
       <EstimationForm onSubmit={handleFormSubmit} />
       </div>
