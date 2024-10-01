@@ -23,7 +23,7 @@ export default function Home() {
     <div className="w-80 md:w-[500px] mt-5">
       <h1>Calculateur de TJM</h1>
       <form onSubmit={calculerTJM}>
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="w-full">
           <label>
             Charges mensuelles totales (€) :
             <input
@@ -31,11 +31,12 @@ export default function Home() {
               value={charges}
               onChange={(e) => setCharges(parseFloat(e.target.value))}
               required
-              style={{ marginLeft: "1rem" }}
+              className="input input-bordered w-full"
             />
           </label>
         </div>
-        <div style={{ marginBottom: "1rem" }}>
+        <br />
+        <div className="w-full">
           <label>
             Jours travaillés par mois :
             <input
@@ -43,17 +44,17 @@ export default function Home() {
               value={joursTravailles}
               onChange={(e) => setJoursTravailles(parseInt(e.target.value))}
               required
-              style={{ marginLeft: "1rem" }}
+              className="input input-bordered w-full"
             />
           </label>
         </div>
-        <button type="submit" style={{ padding: "0.5rem 1rem" }}>
+        <button type="submit" className="flex flex-col justify-center items-center">
           Calculer TJM
         </button>
       </form>
 
       {tjm && (
-        <div style={{ marginTop: "2rem" }}>
+        <div className="flex flex-col justify-center items-center">
           <h2>Votre TJM est de : {tjm} €/jour</h2>
         </div>
       )}
