@@ -21,11 +21,10 @@ export default function Home() {
     <NavBar />
     <div className="flex flex-col items-center justify-center">
     <div className="w-80 md:w-[500px] mt-5">
-      <h1>Calculateur de TJM</h1>
       <form onSubmit={calculerTJM}>
         <div className="w-full">
           <label>
-            Charges mensuelles totales (€) :
+            Charges mensuelles totales (€)
             <input
               type="number"
               value={charges}
@@ -38,7 +37,7 @@ export default function Home() {
         <br />
         <div className="w-full">
           <label>
-            Jours travaillés par mois :
+            Jours travaillés par mois
             <input
               type="number"
               value={joursTravailles}
@@ -48,14 +47,15 @@ export default function Home() {
             />
           </label>
         </div>
+        <br />
         <button type="submit" className="btn btn-primary w-full">
           Calculer TJM
         </button>
       </form>
 
       {tjm && (
-        <div className="flex flex-col justify-center items-center">
-          <h2>Votre TJM est de : {tjm} €/jour</h2>
+        <div className="flex justify-center items-center">
+          <p>Votre TJM est de : {tjm} €/jour</p>
         </div>
       )}
     </div>
