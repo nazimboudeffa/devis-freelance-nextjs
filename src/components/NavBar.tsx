@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function NavBar() {
     return (
-        <nav className="flex justify-between align-center">
+        <nav className="flex justify-between align-center p-5">
             <div >
                     <Link 
                         href='/'

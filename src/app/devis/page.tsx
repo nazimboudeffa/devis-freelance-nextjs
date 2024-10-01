@@ -2,7 +2,7 @@
 
 // app/devis/page.tsx
 import { Suspense } from 'react';
-import NavBar from '../components/NavBar';
+import NavBar from '@/components/NavBar';
 import { useSearchParams } from 'next/navigation';
 
 const DevisPage = () => {

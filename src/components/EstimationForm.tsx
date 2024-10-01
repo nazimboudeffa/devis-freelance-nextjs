@@ -1,4 +1,4 @@
-import { technologyOptions, technologyTasksMap } from '../data/tasks';
+import { technologyOptions, technologyTasksMap } from '@/data/tasks';
 import { useState } from 'react';
 import Select, { MultiValue, SingleValue } from 'react-select';
 

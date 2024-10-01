@@ -1,10 +1,10 @@
 "use client"
 import { useState } from "react";
 import YouTube from "react-youtube";
-import { tasks, Task } from "../data/learn";
+import { tasks, Task } from "../../data/learn";
 import { AiFillYoutube } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import NavBar from "../components/NavBar";
+import NavBar from "@/components/NavBar";
 
 const Learn: React.FC = () => {
 	const [youtubePlayer, setYoutubePlayer] = useState({
