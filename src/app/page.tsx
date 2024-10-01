@@ -33,6 +33,24 @@ function Solutions () {
             color: "red",
             link: "/",
         },
+        {
+          id: "3",
+          name: "Tâches",
+          description:
+              "Comment réaliser des tâches.",
+          icon: <CheckCircle2 />,
+          color: "green",
+          link: "/learn",
+        },
+        {
+          id: "2",
+          name: "Ressources",
+          description:
+              "Infos pour les freelances.",
+          icon: <XCircle />,
+          color: "red",
+          link: "/",
+        },
     ]
     
     return (

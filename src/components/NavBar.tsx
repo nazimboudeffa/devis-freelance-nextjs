@@ -16,22 +16,7 @@ export default function NavBar() {
                         />
                     </Link>
             </div>
-            <div>
-                    <Link 
-                        href='/'
-                    >
-                        <span className="flex hidden md:block">Devis pour Freelances</span>
-                    </Link>
-            </div>
             <div className="flex flex-row gap-2">
-            <Link href="/learn" passHref={true}>
-                <Image
-                    src="learn.svg"
-                    alt="Learn"
-                    height={40}
-                    width={40}
-                />
-            </Link>
             <Link href="https://github.com/nazimboudeffa/devis-freelance-nextjs" passHref={true}>                   
             <Image
                 src="github.svg"
