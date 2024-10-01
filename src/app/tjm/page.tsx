@@ -48,7 +48,7 @@ export default function Home() {
             />
           </label>
         </div>
-        <button type="submit" className="flex flex-col justify-center items-center">
+        <button type="submit" className="btn btn-primary w-full">
           Calculer TJM
         </button>
       </form>
